@@ -29,9 +29,19 @@ class TestBaseModel_instance(unittest.TestCase):
 		self.assertEqual(f"{k}", fs)  
 
 class TestBaseModel_save(unittest.Testcase)
+	
+	def setUp(self):
+		try:
+			os.rename("file.json", "test.json")
+		except IOError:
+			pass
+
+	def tearDown(self):
+		 
+
 	def test_save_json(self):
-
-
+		
+		with open("file.json")
 
 
 if __name__ == "__main__":
