@@ -12,12 +12,14 @@ from models.place import Place
 from models.review import Review
 from models.base_model import BaseModel
 
+
 def tokens(string):
     pattern = re.findall(r'\"([^\"]*)\"|(\S+)', string)
     args = []
     for i in range(len(pattern)):
         args.append("".join(pattern[i]))
     return args
+
 
 class HBNBCommand(cmd.Cmd):
 
@@ -51,11 +53,11 @@ class HBNBCommand(cmd.Cmd):
                 cmd = pattern.group(1)
                 if cmd in commands:
                     if pattern.group(2):
-                        return commands[cmd](f"{class_name} {pattern.group(2)}")
+                        ret = f"{class_name} {pattern.group(2)}"
+                        return commands[cmd](ret)
                     return commands[cmd](f"{class_name}")
         print("*** Unknown syntax: {}".format(arg))
         return False
-
 
     def do_quit(self, arg):
         """Quit the console"""
@@ -175,7 +177,6 @@ class HBNBCommand(cmd.Cmd):
                 if re.search(fr'^{re.escape(args[0])}', obj):
                     count += 1
         print(count)
-
 
 
 if __name__ == '__main__':

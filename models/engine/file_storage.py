@@ -34,8 +34,8 @@ class FileStorage:
             json.dump(file_content, f)
 
     def reload(self):
-        """deserializes the JSON file to __objects (only if the JSON file exists
-           otherwise, do nothing, no exception should be raised) 
+        """deserializes the JSON file to __objects (only if the JSON file
+           exists otherwise, do nothing, no exception should be raised)
         """
         try:
 
@@ -47,4 +47,3 @@ class FileStorage:
                     self.new(eval(cls_name)(**obj))
         except FileNotFoundError:
             return
-
