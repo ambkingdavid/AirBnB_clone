@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """A module that contains the base_model class."""
+
 import models
 from uuid import uuid4
 from datetime import datetime
 
 
 class BaseModel:
-    """ A base model class"""
+    """ A base model class."""
 
     def __init__(self, *args, **kwargs):
-        """initialise an instance of the base model"""
+        """initialise an instance of the base model."""
 
         self.id = str(uuid4())
         self.created_at = datetime.today()
@@ -27,26 +28,20 @@ class BaseModel:
             models.storage.new(self)
 
     def __str__(self):
-        """An infomal string representation of an object"""
+        """An infomal string representation of an object."""
 
         class_name = self.__class__.__name__
 
         return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
 
     def save(self):
-        """
-        updates the public instance attribute updated_at
-        with the current datetime
-        """
+        """updates the public instance attribute updated_at."""
 
         self.updated_at = datetime.today()
         models.storage.save()
 
     def to_dict(self):
-        """
-        returns a dictionary containing all keys/values
-        of __dict__ of the instance
-        """
+        """returns a dictionary containing __dict__ values."""
 
         class_name = self.__class__.__name__
         dictionary = self.__dict__.copy()
