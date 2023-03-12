@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
-
 """A module that contains the base_model class"""
-
 import models
 from uuid import uuid4
 from datetime import datetime
@@ -11,7 +9,13 @@ class BaseModel:
     """ A base model class"""
 
     def __init__(self, *args, **kwargs):
-        """initialise an instance of the base model"""
+        """initialise an instance of the base model
+
+
+        Args:
+            *args (any): Unused
+            **kwargs (dict): Key/value pairs of attributes
+        """
 
         self.id = str(uuid4())
         self.created_at = datetime.today()
