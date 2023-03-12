@@ -12,7 +12,6 @@ from models.place import Place
 from models.review import Review
 from models.base_model import BaseModel
 
-
 def tokens(string):
     check = re.search(r'(\w+)\s+"([\w-]+)",\s+(\{.*\})', string)
     if check is not None:
