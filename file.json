@@ -1,1 +1,1 @@
-{"BaseModel.1a1f7415-9474-468d-b9bb-079342e01c7c": {"id": "1a1f7415-9474-468d-b9bb-079342e01c7c", "created_at": "2023-03-11T14:05:32.258247", "updated_at": "2023-03-11T14:05:32.258690", "name": "kelvin", "__class__": "BaseModel"}}
+{"User.9ba7edc6-86e1-416b-9ec4-f974c3b4682a": {"id": "9ba7edc6-86e1-416b-9ec4-f974c3b4682a", "created_at": "2023-03-12T10:31:50.715051", "updated_at": "2023-03-12T10:31:50.715070", "__class__": "User"}}

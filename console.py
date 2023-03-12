@@ -14,11 +14,17 @@ from models.base_model import BaseModel
 
 
 def tokens(string):
-    pattern = re.findall(r'\"([^\"]*)\"|(\S+)', string)
-    args = []
-    for i in range(len(pattern)):
-        args.append("".join(pattern[i]))
-    return args
+    check = re.search(r'(\w+)\s+"([\w-]+)",\s+(\{.*\})', string)
+    if check is not None:
+        args = list(check.groups())
+        return args
+    else:
+        string = " ".join(string.split(", "))
+        pattern = re.findall(r'\"([^\",]*)\"|\'([^\",]*)\'|(\S+)', string)
+        args = []
+        for i in range(len(pattern)):
+            args.append("".join(pattern[i]))
+        return args
 
 
 class HBNBCommand(cmd.Cmd):
@@ -44,18 +50,14 @@ class HBNBCommand(cmd.Cmd):
                 "update": self.do_update,
                 "count": self.do_count
                 }
-        pattern = re.search(r'([a-zA-Z]+)\.(.+)', arg)
+        pattern = re.search(r'(\w+).(\w+)\((.*)\)', arg)
         if pattern is not None:
-            class_name = pattern.group(1)
-            cmd_and_arg = pattern.group(2)
-            pattern = re.search(r'^(\w+)\((.*)\)$', cmd_and_arg)
-            if pattern is not None:
-                cmd = pattern.group(1)
-                if cmd in commands:
-                    if pattern.group(2):
-                        ret = f"{class_name} {pattern.group(2)}"
-                        return commands[cmd](ret)
-                    return commands[cmd](f"{class_name}")
+            args = list(pattern.groups())
+            if args[1] in commands.keys():
+                cmd = args[1]
+                del args[1]
+                arg_str = " ".join(args)
+                return commands[cmd](arg_str)
         print("*** Unknown syntax: {}".format(arg))
         return False
 
