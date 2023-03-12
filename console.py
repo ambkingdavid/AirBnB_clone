@@ -156,16 +156,26 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
         elif len(args) < 3:
             print("** attribute name missing **")
-        elif len(args) < 4:
+        elif len(args) < 4 and type(eval(args[2])) != dict:
             print("** value missing **")
         else:
-            obj = objects[f"{args[0]}.{args[1]}"]
-            obj_dict = obj.__class__.__dict__
-            if args[2] in obj.__dict__.keys():
-                value_type = type(obj.__dict__[args[2]])
-                obj.__dict__[args[2]] = value_type(args[3])
+            if len(args) == 3 and type(eval(args[2])) == dict:
+                obj = objects[f"{args[0]}.{args[1]}"]
+                arg_dict = eval(args[2])
+                for k, v in arg_dict.items():
+                    if k in obj.__dict__.keys():
+                        value_type = type(obj.__dict__[k])
+                        obj.__dict__[k] = value_type(v)
+                    else:
+                        obj.__dict__[k] = v
             else:
-                obj.__dict__[args[2]] = args[3]
+                obj = objects[f"{args[0]}.{args[1]}"]
+                #obj_dict = obj.__class__.__dict__
+                if args[2] in obj.__dict__.keys():
+                    value_type = type(obj.__dict__[args[2]])
+                    obj.__dict__[args[2]] = value_type(args[3])
+                else:
+                    obj.__dict__[args[2]] = args[3]
             storage.save()
 
     def do_count(self, arg):
