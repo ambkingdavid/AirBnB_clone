@@ -148,38 +148,43 @@ class HBNBCommand(cmd.Cmd):
         objects = storage.all()
         if len(arg) == 0:
             print("** class name missing **")
+            return False
         elif args[0] not in self.valid_classes:
             print("** class doesn't exist **")
+            return False
         elif len(args) == 1:
             print("** instance id missing **")
+            return False
         elif f"{args[0]}.{args[1]}" not in objects:
             print("** no instance found **")
+            return False
         elif len(args) < 3:
             print("** attribute name missing **")
+            return False
         elif len(args) < 4:
             try:
                 type(eval(args[2])) != dict
             except NameError:
                 print("** value missing **")
                 return False
-        else:
-            if len(args) == 3 and type(eval(args[2])) == dict:
-                obj = objects[f"{args[0]}.{args[1]}"]
-                arg_dict = eval(args[2])
-                for k, v in arg_dict.items():
-                    if k in obj.__dict__.keys():
-                        value_type = type(obj.__dict__[k])
-                        obj.__dict__[k] = value_type(v)
-                    else:
-                        obj.__dict__[k] = v
-            else:
-                obj = objects[f"{args[0]}.{args[1]}"]
-                if args[2] in obj.__dict__.keys():
-                    value_type = type(obj.__dict__[args[2]])
-                    obj.__dict__[args[2]] = value_type(args[3])
+
+        if len(args) == 3 and type(eval(args[2])) == dict:
+            obj = objects[f"{args[0]}.{args[1]}"]
+            arg_dict = eval(args[2])
+            for k, v in arg_dict.items():
+                if k in obj.__dict__.keys():
+                    value_type = type(obj.__dict__[k])
+                    obj.__dict__[k] = value_type(v)
                 else:
-                    obj.__dict__[args[2]] = args[3]
-            storage.save()
+                    obj.__dict__[k] = v
+        else:
+            obj = objects[f"{args[0]}.{args[1]}"]
+            if args[2] in obj.__dict__.keys():
+                value_type = type(obj.__dict__[args[2]])
+                obj.__dict__[args[2]] = value_type(args[3])
+            else:
+                obj.__dict__[args[2]] = args[3]
+        storage.save()
 
     def do_count(self, arg):
         """retrieve the number of instances of a class"""
