@@ -170,7 +170,6 @@ class HBNBCommand(cmd.Cmd):
                         obj.__dict__[k] = v
             else:
                 obj = objects[f"{args[0]}.{args[1]}"]
-                #obj_dict = obj.__class__.__dict__
                 if args[2] in obj.__dict__.keys():
                     value_type = type(obj.__dict__[args[2]])
                     obj.__dict__[args[2]] = value_type(args[3])
