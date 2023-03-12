@@ -156,8 +156,12 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
         elif len(args) < 3:
             print("** attribute name missing **")
-        elif len(args) < 4 and type(eval(args[2])) != dict:
-            print("** value missing **")
+        elif len(args) < 4:
+            try:
+                type(eval(args[2])) != dict
+            except NameError:
+                print("** value missing **")
+                return False
         else:
             if len(args) == 3 and type(eval(args[2])) == dict:
                 obj = objects[f"{args[0]}.{args[1]}"]
