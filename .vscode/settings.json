@@ -1,0 +1,11 @@
+{
+        "liveServer.settings.https": {
+                "enable": true
+        },
+        "liveServer.settings.useLocalIp": true,
+        "liveServer.settings.proxy": {
+                "enable": true
+        },
+        "liveServer.settings.fullReload": true,
+        "liveServer.settings.CustomBrowser": "chrome"
+}
